@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="App">
+    <head>
+        <meta charset="utf-8" />
+        <title>直線距離計測アプリ</title>
+      <style>
+        .row {
+          margin-top: 4px;
+        }
+      </style>
+      <!-- jQuery -->
+      <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+      <!-- leaflet -->
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin=""/>
+      <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=""></script>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <!-- AngularJS -->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+      <!-- My Application JS -->
+      <script src="app.js"></script>
+    </head>
+    <body ng-controller="AppController">
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">直線距離計測アプリ(仮)</a>
+          </div>
+        </div>
+      </nav>
+      <!-- contents -->
+      <div style="margin-top:50px;"></div>
+      <div class="container theme-showcase" role="main">
+        <!-- 地図(OpenStreetMap) -->
+        <div class="row"> 
+          <div class="col-md-12">
+            <div id="mapid" style="width: 100%; height: 600px;"></div>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
+
