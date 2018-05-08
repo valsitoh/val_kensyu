@@ -11,6 +11,7 @@ app.controller('AppController', ['$scope', '$http',
         "lng": 139.651444,
         "name": 'ヴァル研究所'
       };
+      var line;
 
       /*
        * 2点の緯度経度の距離を計算する(Qiita)
@@ -51,7 +52,7 @@ app.controller('AppController', ['$scope', '$http',
         // ヴァル研究所を地図の中心に表示させる。
         $scope.mymap = L.map('mapid', {
           center: [$scope.to_latlng.lat, $scope.to_latlng.lng],
-          zoom: 18
+          zoom: 12
         });
         L.control.scale().addTo($scope.mymap);
         L.marker([$scope.to_latlng.lat, $scope.to_latlng.lng]).addTo($scope.mymap).bindPopup($scope.to_latlng.name).openPopup();
@@ -72,8 +73,11 @@ app.controller('AppController', ['$scope', '$http',
 
         // 地図上でクリックした個所まで線を引く。
         $scope.mymap.on('click', function(e) {
+          if (line != undefined) {
+            line.remove($scope.mymap);
+          }
           console.log(e);
-          var line = L.polyline([
+          line = L.polyline([
               [$scope.to_latlng.lat, $scope.to_latlng.lng],
               [e.latlng.lat, e.latlng.lng]
             ], {
@@ -83,13 +87,32 @@ app.controller('AppController', ['$scope', '$http',
             });
 
           line.on('mouseover', function() {
-            // 
+            //
           });
-
-          line.addTo($scope.mymap);
-
           // 距離を計算する。
           var distance = calc_distance($scope.to_latlng.lat, $scope.to_latlng.lng, e.latlng.lat, e.latlng.lng);
+
+          //通勤費の判定
+          var money = '総務に相談'
+          if (distance <= 10000) {
+            money = '10,000円'
+          }
+          if (distance < 5000) {
+            money = '5,000円'
+          }
+          if (distance < 2000) {
+            money = '0円<b>歩いてね</b>'
+          }
+
+          if (distance >= 1000) {
+            line.bindPopup(Math.round(distance / 1000 * 10) / 10+ ' km<br>' + money);
+          }else {
+            line.bindPopup(Math.round(distance) + ' m<br>' + money);
+          }
+          line.addTo($scope.mymap);
+
+          line.openPopup();
+
           console.log(distance);
         });
       }
@@ -97,4 +120,3 @@ app.controller('AppController', ['$scope', '$http',
       $scope.init();
    }
 ]);
-
