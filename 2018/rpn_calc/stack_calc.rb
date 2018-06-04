@@ -29,7 +29,7 @@ class ReversePolishNotationCalculator
 
   def initialize(rpn_str, debug = false)
     @rpn_str = rpn_str
-    @working_stack = Stack.new  # 作業用スタック
+    @stack = Stack.new  # 作業用スタック
     @debug = debug  # デバッグ出力用
   end
 
@@ -39,28 +39,28 @@ class ReversePolishNotationCalculator
 
       if OPERATOR_SYMBOLS.include?(token)
         # 文字が演算子なら、作業用スタックから値を取り出し計算する。
-        y = @working_stack.pop.to_i
-        x = @working_stack.pop.to_i
+        y = @stack.pop.to_i
+        x = @stack.pop.to_i
 
         # 計算した値は作業用スタックにpushする。
         case token
-          when '+' then @working_stack.push(x + y)
-          when '-' then @working_stack.push(x - y)
-          when '*' then @working_stack.push(x * y)
-          when '/' then @working_stack.push(x / y)
+          when '+' then @stack.push(x + y)
+          when '-' then @stack.push(x - y)
+          when '*' then @stack.push(x * y)
+          when '/' then @stack.push(x / y)
         end
       else
         # 文字が演算子でない場合は、そのまま作業用スタックにpushする。
-        @working_stack.push(token)
+        @stack.push(token)
       end
 
-      puts "stack, token = [#{@working_stack.get_stack.join(' ')}]" if @debug
+      puts "stack, token = [#{@stack.get_stack.join(' ')}]" if @debug
       puts "- - - - -" if @debug
     end
 
     # 数式のスタックが空になった(全部処理された)時点で、
     # 作業用スタックには計算結果の値が入っている。
-    return @working_stack.pop.to_i
+    return @stack.pop.to_i
   end
 end
 
